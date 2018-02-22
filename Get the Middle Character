@@ -1,0 +1,13 @@
+#I did not have to google anything for this
+
+def get_middle(s):
+    new_s = s
+    while True:
+        size = len(new_s)
+        if size <= 2: return(new_s)
+        new_s = new_s[1:size-1]
+        
+#------Best practice---->
+
+def get_middle(s):
+   return s[(len(s)-1)/2:len(s)/2+1]
