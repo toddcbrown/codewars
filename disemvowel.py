@@ -9,6 +9,6 @@ def disemvowel(string):
     
     return ''.join(new_lst)
     
-#### Best practice ####
+#### Best practice #### I Tried this code and got a Traceback?????
 def disemvowel(s):
     return s.translate(None, "aeiouAEIOU")
