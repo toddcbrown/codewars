@@ -1,0 +1,65 @@
+#LOL --- My code
+def get_issuer(number):
+    number = str(number)
+    if number.startswith('3'):
+        if len(number) == 15:
+            return('AMEX')
+        else:
+            return('Unknown')
+    elif number.startswith('6011'):
+        if len(number) == 16:
+            return('Discover')
+        else:return('Unknown')
+    elif number.startswith('5'):
+        number = int(number)
+        if number < 5600000000000000:
+            number = str(number)
+            if len(number) == 16:               
+                return('Mastercard')
+            else:
+                return('Unknown')
+        else:
+            return('Unknown')
+    elif number.startswith('4'):
+        if len(number) == 13 or len(number) == 16:
+            return('VISA')
+        else:
+            return('Unknown')
+    else:
+        return('Unknown')
+        
+    #############   -----Tried to clean it to this but it wasn't converting to an integer??
+    
+    def get_issuer(number):
+    if len(number) is 13 or len(number) is 16:
+        if number.startswith('4'):
+            return('Visa') 
+    number = int(number)
+    elif number is >340000000000000 or number <380000000000000:
+        return('AMEX')
+    elif number is >= 6011000000000000 or number <6012000000000000:
+        return('Discover')
+    elif number is >=5100000000000000 or number <=5600000000000000:
+        return('Mastercard')
+    else:
+        return('Unknown')
+        
+############ Best practice
+
+import re
+
+REGEX = re.compile(r'''
+(?P<AMEX>3[47]\d{13}$) |
+(?P<Discover>6011\d{12}$) |
+(?P<Mastercard>5[1-5]\d{14}$) |
+(?P<VISA>(?:4\d{15}|4\d{12})$)''', re.VERBOSE)
+
+
+def get_issuer(card_num):
+    try:
+        return next(
+            k for k, v in REGEX.match(str(card_num)).groupdict().iteritems()
+            if v is not None
+        )
+    except AttributeError:
+        return 'Unknown'
